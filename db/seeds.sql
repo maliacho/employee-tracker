@@ -9,11 +9,11 @@ VALUES ('Finance'),
 
 INSERT INTO role (title, salary, department_id)
 VALUES ('Accountant', 80000, 1),
-('HR Representative', 75000, 2),
-('Front Desk', 70000, 3),
+('HR Representative', 80000, 2),
+('Front Desk', 80000, 3),
 ('Social Media Strategist', 80000, 4),
-('Sales Representative', 75000, 5),
-('Cyber Security', 75000, 6),
+('Sales Representative', 80000, 5),
+('Cyber Security', 80000, 6),
 ('Attorney', 80000, 7);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
