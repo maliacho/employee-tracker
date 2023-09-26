@@ -1,16 +1,5 @@
 const inquirer = require('inquirer');
-const mysql = require('mysql2')
-
-
-const db = mysql.createConnection(
-    {
-        host: '127.0.0.1',
-        user: 'root',
-        password: '',
-        database: 'company_db'
-    },
-    console.log('Connected to the company database.')
-);
+const db = require('./config/connection')
 
 const intialQuestions = [
     {
@@ -94,28 +83,62 @@ const updateEmployee = [
     }
 ];
 
+
 inquirer.prompt(intialQuestions)
-    .then(answer) => {
-    if (answer.choiceInput === 'View All Departments') {
-        db.query('SELECT * FROM department',
-            function (err, results) {
-                console.log(results)
-            }
-        )
-    } else if (answer.choiceInput === 'View All Roles') {
-        db.query('SELECT * FROM role',
-            function (err, results) {
-                console.log(results)
-            }
-        )
-    }
-};
+    .then((answer) => {
+        if (answer.choiceInput === 'View All Departments') {
+            db.query('SELECT * FROM department',
+                function (err, results) {
+                    console.table(results)
+                }
+            )
+        } else if (answer.choiceInput === 'View All Roles') {
+            db.query('SELECT * FROM role',
+                function (err, results) {
+                    console.table(results)
+                }
+            )
+        } else if (answer.choiceInput === 'View All Employees') {
+            db.query('SELECT * FROM employee',
+                function (err, results) {
+                    console.table(results)
+                }
+            )
+        } else if (answer.choiceInput === 'Add a Department') {
+            inquirer.prompt(addDepartment)
+                .then((answer) => {
+                    db.query('INSERT INTO department (name) VALUES (?)', [answer.deptNameInput], (err, result) => {
+                        if (err) throw err;
+                        console.log(`Succesfully added ${answer.deptNameInput} to the company database.`)
+                    })
+                }
+                )
+        } else if (answer.choiceInput === 'Add a Role') {
+            inquirer.prompt(addRole)
+            .then((answer) => {
+                db.query('INSERT INTO role (title, salary, department_id) VALUES (?)', [answer.nameInput, answer.salaryInput, answer.departmentInput], (err, result) => {
+                    if (err) throw err;
+                    console.log(`Successfully added ${answer.nameInput} to the company database.`)
+                })
+            })
+        } else if (answer.choiceInput === 'Add an Employee') {
+            inquirer.prompt(addEmployee)
+            .then((answer) => {
+                db.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?)', [answer.firstName, answer.lastName, answer.employeeRole, answer.employeeManager], (err, result) => {
+                    if (err) throw err;
+                    console.log(`Succesfully added ${answer.firstName} ${answer.lastName} to the company database.`)
+                })
+            })
+        } else if (answer.choiceInput === 'Update an Employee') {
+            inquirer.prompt(updateEmployee)
+            .then((answer) => {
+                db.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?)', [answer.updateEmployee, answer.updatedRole], (err, result) => {
+                    if (err) throw err;
+                    console.log(`Succesfully updated ${answer.updatedEmployee}.`)
+                })
+            })
+        }
+    });
 
 
-const init = (questionsArray, handlerFunction) => {
-    inquirer
-        .prompt(questionsArray)
-        .then(handlerFunction)
-};
 
-init(intialQuestions, handlerFunction);
