@@ -28,6 +28,10 @@ THEN I am prompted to select an employee to update and their new role and this i
 ## Screenshot
 
 
+https://github.com/maliacho/employee-tracker/assets/141271179/3543691a-ddd7-4fdb-b07c-f7d24375fc42
+
+
+
 ## Installation
 You will need to install the Inquirer and MySQL2 Node packages. You will also need to install MySQL on your local machine. 
 
