@@ -25,3 +25,15 @@ THEN I am prompted to enter the employee’s first name, last name, role, and ma
 WHEN I choose to update an employee role
 THEN I am prompted to select an employee to update and their new role and this information is updated in the database
 
+## Screenshot
+
+
+## Installation
+You will need to install the Inquirer and MySQL2 Node packages. You will also need to install MySQL on your local machine. 
+
+## Technologies Used
+VS Code, MySQL, JavaScript, Inquirer, MySQL2
+
+## License 
+MIT License
+

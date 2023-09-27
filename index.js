@@ -137,6 +137,8 @@ inquirer.prompt(intialQuestions)
                     console.log(`Succesfully updated ${answer.updatedEmployee}.`)
                 })
             })
+        } else {
+            inquirer.prompt(intialQuestions)
         }
     });
 
